@@ -1,8 +1,15 @@
-import React from 'react';
 import './App.css';
+import Header from './components/Header';
 
 function App() {
-	return <h1>Hello from App Component</h1>;
+  return (
+    <>
+      <Header text='Feedback UI' />
+      <div className='container'>
+        <h1>My App</h1>
+      </div>
+    </>
+  );
 }
 
 export default App;
