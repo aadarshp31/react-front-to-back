@@ -1,15 +1,13 @@
-import { useState } from 'react';
-
-type Props = {};
+type Props = {
+  item: { id: string; rating: number; text: string };
+};
 
 const FeedbackItem = (props: Props) => {
-  const [rating, setRating] = useState(7);
-  const [text, setText] = useState('This is an example of a feedback item.');
-
+  const { item } = props;
   return (
     <div className='card'>
-      <div className='num-display'>{rating}</div>
-      <div className='text-display'>{text}</div>
+      <div className='num-display'>{item.rating}</div>
+      <div className='text-display'>{item.text}</div>
     </div>
   );
 };
