@@ -1,3 +1,4 @@
+import { FaTimes } from 'react-icons/fa';
 import Card from './shared/Card';
 
 type Props = {
@@ -8,6 +9,9 @@ const FeedbackItem = ({ item }: Props) => {
   return (
     <Card>
       <div className='num-display'>{item.rating}</div>
+      <div className='close'>
+        <FaTimes size='1.3em' />
+      </div>
       <div className='text-display'>{item.text}</div>
     </Card>
   );

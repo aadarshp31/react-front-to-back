@@ -139,6 +139,11 @@ input:focus {
   cursor: pointer;
   background: none;
   border: none;
+  padding: 0.8em;
+}
+
+.close:hover {
+  color: #ff6a95;
 }
 
 .edit {
