@@ -152,12 +152,15 @@ input:focus {
 
 .btn {
   color: #fff;
+  font-weight: bold;
   border: 0;
   border-radius: 8px;
   color: #fff;
+  font-size: 1em;
   width: 100px;
   height: 40px;
   cursor: pointer;
+  transition: opacity 150ms ease-in;
 }
 
 .btn-primary {
@@ -169,8 +172,7 @@ input:focus {
 }
 
 .btn:hover {
-  transform: scale(0.98);
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .btn:disabled {

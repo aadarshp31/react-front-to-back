@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Card from './shared/Card';
+import Button from './shared/Button';
 
 type Props = {};
 
@@ -23,7 +24,7 @@ const FeedbackForm = (props: Props) => {
             value={text}
             onChange={handleTextChange}
           />
-          <button type='submit'>Submit Review</button>
+          <Button type='submit'>Send</Button>
         </div>
       </form>
     </Card>
