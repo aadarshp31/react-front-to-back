@@ -1,14 +1,15 @@
+import Card from './shared/Card';
+
 type Props = {
   item: { id: string; rating: number; text: string };
 };
 
-const FeedbackItem = (props: Props) => {
-  const { item } = props;
+const FeedbackItem = ({ item }: Props) => {
   return (
-    <div className='card'>
+    <Card>
       <div className='num-display'>{item.rating}</div>
       <div className='text-display'>{item.text}</div>
-    </div>
+    </Card>
   );
 };
 
