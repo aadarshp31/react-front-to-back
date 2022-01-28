@@ -4,9 +4,7 @@ type Props = {
   feedback: { id: string; rating: number; text: string }[];
 };
 
-const FeedbackList = (props: Props) => {
-  const { feedback } = props;
-
+const FeedbackList = ({ feedback }: Props) => {
   if (!feedback || feedback.length === 0) {
     return <p>No feedback yet</p>;
   }

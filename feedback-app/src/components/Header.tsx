@@ -4,13 +4,11 @@ type Props = {
   textColor?: string;
 };
 
-const Header = (props: Props) => {
-  const {
-    text = 'Feedback UI',
-    bgColor = 'rgba(0, 0, 0, 0.4)',
-    textColor = '#ff6a95',
-  } = props;
-
+const Header = ({
+  text = 'Feedback UI',
+  bgColor = 'rgba(0, 0, 0, 0.4)',
+  textColor = '#ff6a95',
+}: Props) => {
   const headerStyles = {
     backgroundColor: bgColor,
     color: textColor,
