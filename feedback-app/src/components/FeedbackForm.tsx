@@ -6,9 +6,23 @@ type Props = {};
 
 const FeedbackForm = (props: Props) => {
   const [text, setText] = useState('');
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [message, setMessage] = useState('');
 
   function handleTextChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setText(event.target.value.trim());
+    const newText = event.target.value;
+    if (newText === '') {
+      setBtnDisabled(true);
+      setMessage('');
+    } else if (newText.trim().length <= 10) {
+      setBtnDisabled(true);
+      setMessage('Review must have more than 10 characters ');
+    } else {
+      setMessage('');
+      setBtnDisabled(false);
+    }
+
+    setText(newText);
   }
 
   return (
@@ -24,8 +38,11 @@ const FeedbackForm = (props: Props) => {
             value={text}
             onChange={handleTextChange}
           />
-          <Button type='submit'>Send</Button>
+          <Button type='submit' isDisabled={btnDisabled}>
+            Send
+          </Button>
         </div>
+        {message && <div className='message'>{message}</div>}
       </form>
     </Card>
   );
