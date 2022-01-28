@@ -1,8 +1,9 @@
 import { FaTimes } from 'react-icons/fa';
+import IFeedback from '../entities/IFeedback';
 import Card from './shared/Card';
 
 type Props = {
-  item: { id: string; rating: number; text: string };
+  item: IFeedback;
   handleDelete: Function;
 };
 

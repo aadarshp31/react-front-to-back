@@ -1,4 +1,6 @@
-const FeedbackData: { id: string, rating: number, text: string }[] = [
+import IFeedback from "../entities/IFeedback"
+
+const FeedbackData: IFeedback[] = [
   {
     id: '1',
     rating: 10,

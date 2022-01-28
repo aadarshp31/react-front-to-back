@@ -1,7 +1,8 @@
+import IFeedback from '../entities/IFeedback';
 import FeedbackItem from './FeedbackItem';
 
 type Props = {
-  feedback: { id: string; rating: number; text: string }[];
+  feedback: IFeedback[];
   handleDelete: Function;
 };
 
