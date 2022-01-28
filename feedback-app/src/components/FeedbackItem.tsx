@@ -3,15 +3,16 @@ import Card from './shared/Card';
 
 type Props = {
   item: { id: string; rating: number; text: string };
+  handleDelete: Function;
 };
 
-const FeedbackItem = ({ item }: Props) => {
+const FeedbackItem = ({ item, handleDelete }: Props) => {
   return (
     <Card>
       <div className='num-display'>{item.rating}</div>
-      <div className='close'>
+      <button className='close' onClick={() => handleDelete(item.id)}>
         <FaTimes size='1.3em' />
-      </div>
+      </button>
       <div className='text-display'>{item.text}</div>
     </Card>
   );
