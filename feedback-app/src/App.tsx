@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import About from './components/pages/About';
 import FeedbackForm from './components/FeedbackForm';
 import FeedbackList from './components/FeedbackList';
@@ -26,13 +26,23 @@ function App() {
     <Router>
       <Header />
       <div className='container'>
-        <Route exact path='/'>
-          <FeedbackForm handleAdd={addFeedback} />
-          <FeedbackStats feedback={feedback} />
-          <FeedbackList feedback={feedback} handleDelete={removeFeedback} />
-        </Route>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <>
+                <FeedbackForm handleAdd={addFeedback} />
+                <FeedbackStats feedback={feedback} />
+                <FeedbackList
+                  feedback={feedback}
+                  handleDelete={removeFeedback}
+                />
+              </>
+            }
+          />
+          <Route path='/about' element={<About />} />
+        </Routes>
       </div>
-      <Route path='/about' component={About} />
     </Router>
   );
 }
