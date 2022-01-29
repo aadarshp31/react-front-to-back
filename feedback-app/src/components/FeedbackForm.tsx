@@ -1,35 +1,61 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Card from './shared/Card';
 import Button from './shared/Button';
+import RatingSelect from './RatingSelect';
+import IFeedback from '../entities/IFeedback';
 
-type Props = {};
+type Props = {
+  handleAdd: Function;
+};
 
-const FeedbackForm = (props: Props) => {
+const FeedbackForm = ({ handleAdd }: Props) => {
   const [text, setText] = useState('');
+  const [rating, setRating] = useState(5);
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState('');
 
-  function handleTextChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const newText = event.target.value;
-    if (newText === '') {
+  function resetStates() {
+    setText('');
+    setBtnDisabled(true);
+    setMessage('');
+  }
+
+  function validateTextField(text: string) {
+    if (text === '') {
       setBtnDisabled(true);
       setMessage('');
-    } else if (newText.trim().length <= 10) {
+    } else if (text.trim().length <= 10) {
       setBtnDisabled(true);
-      setMessage('Review must have more than 10 characters ');
+      setMessage('Review must have more than 10 characters');
     } else {
       setMessage('');
       setBtnDisabled(false);
     }
+  }
 
-    setText(newText);
+  function handleTextChange(event: React.ChangeEvent<HTMLInputElement>) {
+    validateTextField(event.target.value);
+    setText(event.target.value);
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    validateTextField(text);
+    const newFeedback: IFeedback = {
+      id: Date.now().toString(),
+      text,
+      rating,
+    };
+
+    handleAdd(newFeedback);
+    resetStates();
   }
 
   return (
     <Card>
-      <form>
+      <form onSubmit={handleSubmit}>
         <h2>How would you rate our service?</h2>
-        {/* TODO: rating select component */}
+        <RatingSelect select={(rating: number) => setRating(rating)} />
         <div className='input-group'>
           <input
             type='text'
