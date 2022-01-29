@@ -1,0 +1,77 @@
+import React, { useState } from 'react';
+import Card from './shared/Card';
+import Button from './shared/Button';
+import RatingSelect from './RatingSelect';
+import IFeedback from '../entities/IFeedback';
+
+type Props = {
+  handleAdd: Function;
+};
+
+const FeedbackForm = ({ handleAdd }: Props) => {
+  const [text, setText] = useState('');
+  const [rating, setRating] = useState(5);
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [message, setMessage] = useState('');
+
+  function resetStates() {
+    setText('');
+    setBtnDisabled(true);
+    setMessage('');
+  }
+
+  function validateTextField(text: string) {
+    if (text === '') {
+      setBtnDisabled(true);
+      setMessage('');
+    } else if (text.trim().length <= 10) {
+      setBtnDisabled(true);
+      setMessage('Review must have more than 10 characters');
+    } else {
+      setMessage('');
+      setBtnDisabled(false);
+    }
+  }
+
+  function handleTextChange(event: React.ChangeEvent<HTMLInputElement>) {
+    validateTextField(event.target.value);
+    setText(event.target.value);
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    validateTextField(text);
+    const newFeedback: IFeedback = {
+      id: Date.now().toString(),
+      text,
+      rating,
+    };
+
+    handleAdd(newFeedback);
+    resetStates();
+  }
+
+  return (
+    <Card>
+      <form onSubmit={handleSubmit}>
+        <h2>How would you rate our service?</h2>
+        <RatingSelect select={(rating: number) => setRating(rating)} />
+        <div className='input-group'>
+          <input
+            type='text'
+            name='feedback-text'
+            placeholder='Write a review'
+            value={text}
+            onChange={handleTextChange}
+          />
+          <Button type='submit' isDisabled={btnDisabled}>
+            Send
+          </Button>
+        </div>
+        {message && <div className='message'>{message}</div>}
+      </form>
+    </Card>
+  );
+};
+
+export default FeedbackForm;
