@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import About from './components/pages/About';
 import FeedbackForm from './components/FeedbackForm';
 import FeedbackList from './components/FeedbackList';
 import FeedbackStats from './components/FeedbackStats';
@@ -21,14 +23,17 @@ function App() {
   }
 
   return (
-    <>
+    <Router>
       <Header />
       <div className='container'>
-        <FeedbackForm handleAdd={addFeedback} />
-        <FeedbackStats feedback={feedback} />
-        <FeedbackList feedback={feedback} handleDelete={removeFeedback} />
+        <Route exact path='/'>
+          <FeedbackForm handleAdd={addFeedback} />
+          <FeedbackStats feedback={feedback} />
+          <FeedbackList feedback={feedback} handleDelete={removeFeedback} />
+        </Route>
       </div>
-    </>
+      <Route path='/about' component={About} />
+    </Router>
   );
 }
 
