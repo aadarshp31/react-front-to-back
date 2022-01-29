@@ -1,5 +1,6 @@
 import IFeedback from '../entities/IFeedback';
 import FeedbackItem from './FeedbackItem';
+import { AnimatePresence, motion } from 'framer-motion';
 
 type Props = {
   feedback: IFeedback[];
@@ -13,11 +14,17 @@ const FeedbackList = ({ feedback, handleDelete }: Props) => {
 
   return (
     <div className='feedback-list'>
-      {feedback.map((item, index) => {
-        return (
-          <FeedbackItem key={index} item={item} handleDelete={handleDelete} />
-        );
-      })}
+      <AnimatePresence>
+        {feedback.map((item, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}>
+            <FeedbackItem key={index} item={item} handleDelete={handleDelete} />
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   );
 };
