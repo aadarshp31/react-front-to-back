@@ -9,7 +9,7 @@ import FeedbackStats from './components/FeedbackStats';
 import Header from './components/Header';
 import FeedbackData from './data/FeedbackData';
 import IFeedback from './entities/IFeedback';
-import FeedbackProvider from './stateManagement/provider/FeedbackProvider';
+import { FeedbackProvider } from './stateManagement/context/FeedbackContext';
 
 function App() {
   const [feedback, setFeedback] = useState(FeedbackData);

@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { createContext, ReactNode, useState } from 'react';
 import IFeedback from '../../entities/IFeedback';
-import FeedbackContext from '../context/FeedbackContext';
+
+const FeedbackContext = createContext({});
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-const FeedbackProvider = ({ children }: Props) => {
-  let initialState: IFeedback[] = [
+export const FeedbackProvider = ({ children }: Props) => {
+  const initialFeedback: IFeedback[] = [
     {
       id: '1',
       rating: 10,
@@ -25,8 +26,7 @@ const FeedbackProvider = ({ children }: Props) => {
     },
   ];
 
-  const [feedback, setFeedback] = useState(initialState);
-
+  const [feedback, setFeedback] = useState(initialFeedback);
   return (
     <FeedbackContext.Provider value={{ feedback, setFeedback }}>
       {children}
@@ -34,4 +34,4 @@ const FeedbackProvider = ({ children }: Props) => {
   );
 };
 
-export default FeedbackProvider;
+export default FeedbackContext;
