@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useState } from 'react';
 import IFeedback from '../../entities/IFeedback';
 
-const FeedbackContext = createContext({});
+const FeedbackContext = createContext<any>({});
 
 type Props = {
   children: ReactNode;

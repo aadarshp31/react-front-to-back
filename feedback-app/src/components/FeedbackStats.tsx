@@ -1,10 +1,9 @@
+import { useContext } from 'react';
 import IFeedback from '../entities/IFeedback';
+import FeedbackContext from '../stateManagement/context/FeedbackContext';
 
-type Props = {
-  feedback: IFeedback[];
-};
-
-const FeedbackStats = ({ feedback = [] }: Props) => {
+const FeedbackStats = () => {
+  const { feedback } = useContext(FeedbackContext);
   function getAverageRating(feedback: IFeedback[]) {
     const numberOfRatings = feedback.length;
 
