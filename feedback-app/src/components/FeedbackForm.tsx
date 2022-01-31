@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Card from './shared/Card';
 import Button from './shared/Button';
 import RatingSelect from './RatingSelect';
 import IFeedback from '../entities/IFeedback';
+import FeedbackContext from '../stateManagement/context/FeedbackContext';
 
-type Props = {
-  handleAdd: Function;
-};
-
-const FeedbackForm = ({ handleAdd }: Props) => {
+const FeedbackForm = () => {
   const [text, setText] = useState('');
   const [rating, setRating] = useState(5);
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState('');
+
+  const { addFeedback } = useContext(FeedbackContext);
 
   function resetStates() {
     setText('');
@@ -47,7 +46,7 @@ const FeedbackForm = ({ handleAdd }: Props) => {
       rating,
     };
 
-    handleAdd(newFeedback);
+    addFeedback(newFeedback);
     resetStates();
   }
 
