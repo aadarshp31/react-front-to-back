@@ -4,17 +4,17 @@ const FeedbackData: IFeedback[] = [
   {
     id: '1',
     rating: 10,
-    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. consequuntur vel vitae commodi alias voluptatem est voluptatum ipsa quae.',
+    text: 'This is my first feedback that I\'ve written in a long time.',
   },
   {
     id: '2',
     rating: 9,
-    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. consequuntur vel vitae commodi alias voluptatem est voluptatum ipsa quae.',
+    text: 'My 2nd review. I\'ve some constructive criticism for the staff.',
   },
   {
     id: '3',
     rating: 8,
-    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. consequuntur vel vitae commodi alias voluptatem est voluptatum ipsa quae.',
+    text: 'This is my third review. You guys are just awesome!',
   },
 ]
 
