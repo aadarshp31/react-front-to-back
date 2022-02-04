@@ -12,6 +12,8 @@ const RatingSelect = ({ select }: Props) => {
   useEffect(() => {
     if (feedbackEditObject.item !== null) {
       setSelected(feedbackEditObject.item.rating);
+    } else {
+      setSelected(5);
     }
   }, [feedbackEditObject]);
 
