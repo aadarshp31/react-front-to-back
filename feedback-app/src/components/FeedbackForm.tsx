@@ -18,6 +18,7 @@ const FeedbackForm = () => {
     resetStates();
     if (feedbackEditObject.item !== null) {
       setText(feedbackEditObject.item.text);
+      setRating(feedbackEditObject.item.rating);
       validateTextField(feedbackEditObject.item.text);
     }
   }, [feedbackEditObject]);
