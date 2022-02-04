@@ -11,12 +11,14 @@ const FeedbackForm = () => {
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState('');
 
-  const { addFeedback, feedbackEditObject } = useContext(FeedbackContext);
+  const { addFeedback, feedbackEditObject, updateFeedback } =
+    useContext(FeedbackContext);
 
   useEffect(() => {
     resetStates();
     if (feedbackEditObject.item !== null) {
       setText(feedbackEditObject.item.text);
+      validateTextField(feedbackEditObject.item.text);
     }
   }, [feedbackEditObject]);
 
@@ -47,13 +49,23 @@ const FeedbackForm = () => {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     validateTextField(text);
-    const newFeedback: IFeedback = {
-      id: Date.now().toString(),
-      text,
-      rating,
-    };
 
-    addFeedback(newFeedback);
+    if (feedbackEditObject.edit && feedbackEditObject.item !== null) {
+      const updatedFeedback: IFeedback = {
+        id: feedbackEditObject.item.id,
+        text,
+        rating,
+      };
+      updateFeedback(updatedFeedback);
+    } else {
+      const newFeedback: IFeedback = {
+        id: Date.now().toString(),
+        text,
+        rating,
+      };
+      addFeedback(newFeedback);
+    }
+
     resetStates();
   }
 
@@ -70,8 +82,9 @@ const FeedbackForm = () => {
             value={text}
             onChange={handleTextChange}
           />
+
           <Button type='submit' isDisabled={btnDisabled}>
-            Send
+            {feedbackEditObject.edit ? 'Update' : 'Send'}
           </Button>
         </div>
         {message && <div className='message'>{message}</div>}
