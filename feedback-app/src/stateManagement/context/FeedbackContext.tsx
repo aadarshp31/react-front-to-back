@@ -9,6 +9,7 @@ const FeedbackContext = createContext<IFeedbackContext>({
   removeFeedback: () => console.log('out of context'),
   updateFeedback: () => console.log('out of context'),
   editFeedback: () => console.log('out of context'),
+  isLoading: false,
 });
 
 type Props = {
@@ -16,6 +17,7 @@ type Props = {
 };
 
 export const FeedbackProvider = ({ children }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [feedback, setFeedback] = useState<IFeedback[]>([]);
   const [feedbackEditObject, setFeedbackEditObject] = useState<{
     edit: boolean;
@@ -35,10 +37,12 @@ export const FeedbackProvider = ({ children }: Props) => {
    */
   async function getFeedback(id?: string) {
     try {
+      setIsLoading(true);
       const path = `/feedback${id === undefined ? '' : '/' + id}`;
       const res = await fetch(process.env.REACT_APP_API_ORIGIN + path);
       switch (res.status) {
         case 200:
+          setIsLoading(false);
           const data = await res.json();
 
           if (data instanceof Array) {
@@ -52,6 +56,7 @@ export const FeedbackProvider = ({ children }: Props) => {
           throw new Error(res.status + ': ' + res.statusText);
       }
     } catch (error: any) {
+      setIsLoading(false);
       console.error(error.message);
     }
   }
@@ -94,6 +99,7 @@ export const FeedbackProvider = ({ children }: Props) => {
     <FeedbackContext.Provider
       value={{
         feedback,
+        isLoading,
         addFeedback,
         removeFeedback,
         updateFeedback,
