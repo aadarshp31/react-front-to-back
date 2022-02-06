@@ -7,4 +7,5 @@ export default interface IFeedbackContext {
   removeFeedback: Function;
   updateFeedback: Function;
   editFeedback: Function;
+  isLoading: boolean;
 }
