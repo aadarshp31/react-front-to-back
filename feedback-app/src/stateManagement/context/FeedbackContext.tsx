@@ -61,13 +61,61 @@ export const FeedbackProvider = ({ children }: Props) => {
     }
   }
 
-  function addFeedback(feedback: IFeedback) {
-    setFeedback((prev) => [feedback, ...prev]);
+  /**
+   * @description adds feedback item to the server's database
+   * @param feedback feedback item you want to add to the server's database
+   */
+  async function addFeedback(feedback: IFeedback) {
+    try {
+      setIsLoading(true);
+      const path = `/feedback/as`;
+      const res = await fetch(process.env.REACT_APP_API_ORIGIN + path, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(feedback),
+      });
+
+      switch (res.status) {
+        case 201:
+          setIsLoading(false);
+          getFeedback();
+          break;
+        default:
+          throw new Error(res.status + ': ' + res.statusText);
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      console.error(error.message);
+    }
   }
 
-  function removeFeedback(id: string) {
+  /**
+   * @description removes a feedback item from the server's database
+   * @param id id of the feedback you want to remove from server's database
+   */
+  async function removeFeedback(id: string) {
     if (window.confirm('Are you sure you want to delete this rating?')) {
-      setFeedback(feedback.filter((feedbackItem) => feedbackItem.id !== id));
+      try {
+        setIsLoading(true);
+        const path = `/feedback/${id}`;
+        const res = await fetch(process.env.REACT_APP_API_ORIGIN + path, {
+          method: 'DELETE',
+        });
+
+        switch (res.status) {
+          case 200:
+            setIsLoading(false);
+            getFeedback();
+            break;
+          default:
+            throw new Error(res.status + ': ' + res.statusText);
+        }
+      } catch (error: any) {
+        setIsLoading(false);
+        console.error(error.message);
+      }
     }
   }
 
