@@ -42,9 +42,19 @@ header {
 }
 
 .card.reverse {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(90, 197, 204, 0.4);
   color: #fff;
 }
+
+/* .card.updating {
+  background-color: rgba(90, 197, 204, 0.4);
+  color: #fff;
+}
+
+.card.reverse.updating {
+  background-color: rgba(90, 197, 204, 0.4);
+  color: #fff;
+} */
 
 .card h2 {
   font-size: 22px;
@@ -141,6 +151,11 @@ input:focus {
   border: none;
   padding: 0.8em;
   /* background-color: #333; */
+}
+
+.close.reverse,
+.edit.reverse {
+  color: #fff;
 }
 
 .close:hover,
