@@ -38,8 +38,13 @@ export const FeedbackProvider = ({ children }: Props) => {
   async function getFeedback(id?: string) {
     try {
       setIsLoading(true);
+      // FIXME: Add sort to desc with field
+      // FIXME: Please add a updated/created at field to manage state location as per sequence
       const path = `/feedback${id === undefined ? '' : '/' + id}`;
-      const res = await fetch(process.env.REACT_APP_API_ORIGIN + path);
+      const sortFilterQuery = `_sort=id&_order=desc`;
+      const res = await fetch(
+        `${process.env.REACT_APP_API_ORIGIN + path}?${sortFilterQuery}`
+      );
       switch (res.status) {
         case 200:
           setIsLoading(false);
@@ -68,7 +73,7 @@ export const FeedbackProvider = ({ children }: Props) => {
   async function addFeedback(feedback: IFeedback) {
     try {
       setIsLoading(true);
-      const path = `/feedback/as`;
+      const path = `/feedback`;
       const res = await fetch(process.env.REACT_APP_API_ORIGIN + path, {
         method: 'POST',
         headers: {
@@ -119,21 +124,39 @@ export const FeedbackProvider = ({ children }: Props) => {
     }
   }
 
-  function updateFeedback(feedbackItem: IFeedback) {
-    setFeedback((prev) =>
-      prev.map((item) => {
-        if (item.id === feedbackItem.id) {
-          item.rating = feedbackItem.rating;
-          item.text = feedbackItem.text;
-          setFeedbackEditObject({
-            edit: false,
-            item: null,
+  async function updateFeedback(feedbackItem: IFeedback) {
+    try {
+      setIsLoading(true);
+      const path = `/feedback/${feedbackItem.id}`;
+      const res = await fetch(process.env.REACT_APP_API_ORIGIN + path, {
+        method: 'PATCH',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(feedbackItem),
+      });
+
+      switch (res.status) {
+        case 200:
+          setIsLoading(false);
+          const data = await res.json();
+          setFeedback((prev) => {
+            const newFeedback = prev.map((item) => {
+              if (item.id === data.id) {
+                item = data;
+              }
+              return item;
+            });
+            return newFeedback;
           });
-          return item;
-        }
-        return item;
-      })
-    );
+          break;
+        default:
+          throw new Error(res.status + ': ' + res.statusText);
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      console.error(error.message);
+    }
   }
 
   function editFeedback(feedbackItem: IFeedback) {
