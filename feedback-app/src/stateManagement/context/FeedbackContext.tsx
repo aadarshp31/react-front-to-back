@@ -149,11 +149,19 @@ export const FeedbackProvider = ({ children }: Props) => {
             });
             return newFeedback;
           });
+          setFeedbackEditObject({
+            edit: false,
+            item: null,
+          });
           break;
         default:
           throw new Error(res.status + ': ' + res.statusText);
       }
     } catch (error: any) {
+      setFeedbackEditObject({
+        edit: false,
+        item: null,
+      });
       setIsLoading(false);
       console.error(error.message);
     }
