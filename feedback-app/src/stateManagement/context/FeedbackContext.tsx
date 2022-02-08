@@ -38,7 +38,6 @@ export const FeedbackProvider = ({ children }: Props) => {
   async function getFeedback(id?: string) {
     try {
       setIsLoading(true);
-      // FIXME: Add sort to desc with field
       // FIXME: Please add a updated/created at field to manage state location as per sequence
       const path = `/feedback${id === undefined ? '' : '/' + id}`;
       const sortFilterQuery = `_sort=id&_order=desc`;
@@ -85,7 +84,8 @@ export const FeedbackProvider = ({ children }: Props) => {
       switch (res.status) {
         case 201:
           setIsLoading(false);
-          getFeedback();
+          const item = await res.json();
+          setFeedback((prev) => [item, ...prev]);
           break;
         default:
           throw new Error(res.status + ': ' + res.statusText);
@@ -112,7 +112,7 @@ export const FeedbackProvider = ({ children }: Props) => {
         switch (res.status) {
           case 200:
             setIsLoading(false);
-            getFeedback();
+            setFeedback((prev) => prev.filter((item) => item.id !== id));
             break;
           default:
             throw new Error(res.status + ': ' + res.statusText);
@@ -124,6 +124,10 @@ export const FeedbackProvider = ({ children }: Props) => {
     }
   }
 
+  /**
+   * @description update a feedback item in the server's database
+   * @param feedbackItem feedback item you want to update in the server's database
+   */
   async function updateFeedback(feedbackItem: IFeedback) {
     try {
       setIsLoading(true);
@@ -167,6 +171,10 @@ export const FeedbackProvider = ({ children }: Props) => {
     }
   }
 
+  /**
+   * @description marks selected feedback for edit/update
+   * @param feedbackItem feedback item you want to mark for edit/update
+   */
   function editFeedback(feedbackItem: IFeedback) {
     setFeedbackEditObject({
       edit: true,
