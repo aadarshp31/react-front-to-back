@@ -8,3 +8,12 @@ This repo contains projects built with ReactJs. It is meant for refreshing my Re
 
 - **Description**: This is a feedback survey application. It consists of a simple feedback form with rating & a list of feedbacks already stored. Currently this application stores states in client side only.
 - **Demo**: https://feedback-app-adarshpandey.netlify.app/
+
+<br />
+
+## 2. Github Finder
+
+**Build Status**: [Will be available soon]
+
+- **Description**: This is Github User finder application with user search, filter and other functionalities.
+- **Demo**: [Will be available soon]
