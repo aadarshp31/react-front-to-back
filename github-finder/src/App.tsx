@@ -1,4 +1,4 @@
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/layout/Navbar';
 
@@ -7,7 +7,9 @@ function App() {
     <Router>
       <div className='flex flex-col justify-between h-screen'>
         <Navbar />
-        <main>Content</main>
+        <main>
+          <h1 className='mx-auto'>Github Finder App</h1>
+        </main>
       </div>
     </Router>
   );
