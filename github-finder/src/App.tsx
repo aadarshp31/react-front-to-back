@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
+import Footer from './components/layout/Footer';
 import Navbar from './components/layout/Navbar';
 
 function App() {
@@ -7,9 +8,10 @@ function App() {
     <Router>
       <div className='flex flex-col justify-between h-screen'>
         <Navbar />
-        <main>
+        <main className='container mx-auto px-3 pb-12'>
           <h1 className='mx-auto'>Github Finder App</h1>
         </main>
+        <Footer />
       </div>
     </Router>
   );
