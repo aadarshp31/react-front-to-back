@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import GithubUser from '../../models/GithubUser';
 import Spinner from '../layout/Spinner';
+import UserItem from './UserItem';
 
 type Props = {};
 
@@ -8,7 +9,7 @@ const UserResults = (props: Props) => {
   const [users, setUsers] = useState<GithubUser[]>([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    // fetchUsers();
+    fetchUsers();
   }, []);
 
   async function fetchUsers() {
@@ -30,7 +31,7 @@ const UserResults = (props: Props) => {
       {loading ? (
         <Spinner />
       ) : (
-        users.map((user, index) => <h3 key={index}>{user.login}</h3>)
+        users.map((user, index) => <UserItem key={index} user={user} />)
       )}
     </div>
   );
