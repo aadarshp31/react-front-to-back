@@ -12,7 +12,7 @@ const UserItem = ({ user: { login, avatar_url } }: Props) => {
         <div className=''>
           <div className='avatar'>
             <div className='rounded-full shadow w-14 h-14'>
-              <img src={avatar_url} alt='Profile Image' />
+              <img src={avatar_url} alt='Profile' />
             </div>
           </div>
           <h2 className='card-title'>{login}</h2>
