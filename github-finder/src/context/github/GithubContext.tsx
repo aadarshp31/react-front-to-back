@@ -29,8 +29,16 @@ export const GithubProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(githubReducer, initialState);
   const { users, loading } = state;
 
+  function setLoading(value: boolean) {
+    dispatch({ type: GITHUB_ACTION_TYPES.SET_LOADING, payload: value });
+  }
+
+  function setUsers(value: boolean) {
+    dispatch({ type: GITHUB_ACTION_TYPES.GET_USERS, payload: value });
+  }
+
   async function fetchUsers() {
-    dispatch({ type: GITHUB_ACTION_TYPES.SET_LOADING, payload: true });
+    setLoading(true);
 
     const response = await fetch(`${GITHUB_URL}/users`, {
       headers: {
@@ -41,8 +49,8 @@ export const GithubProvider = ({ children }: Props) => {
     const data = await response.json();
     console.log('users', data);
 
-    dispatch({ type: GITHUB_ACTION_TYPES.GET_USERS, payload: data });
-    dispatch({ type: GITHUB_ACTION_TYPES.SET_LOADING, payload: false });
+    setUsers(data);
+    setLoading(false);
   }
 
   return (
