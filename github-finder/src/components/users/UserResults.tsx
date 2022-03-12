@@ -10,6 +10,7 @@ const UserResults = (props: Props) => {
 
   useEffect(() => {
     fetchUsers();
+    // eslint-disable-next-line
   }, []);
 
   return (
