@@ -1,5 +1,7 @@
-import { createContext, useState } from 'react';
+import { createContext, useReducer } from 'react';
 import GithubUser from '../../models/GithubUser';
+import GITHUB_ACTION_TYPES from './GITHUB_ACTION_TYPES';
+import githubReducer from './GithubReducer';
 
 const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
 const GITHUB_PAT = process.env.REACT_APP_GITHUB_PAT;
@@ -19,11 +21,17 @@ type Props = {
 };
 
 export const GithubProvider = ({ children }: Props) => {
-  const [users, setUsers] = useState<GithubUser[]>([]);
-  const [loading, setLoading] = useState(false);
+  const initialState: { users: GithubUser[]; loading: boolean } = {
+    users: [],
+    loading: false,
+  };
+
+  const [state, dispatch] = useReducer(githubReducer, initialState);
+  const { users, loading } = state;
 
   async function fetchUsers() {
-    setLoading(true);
+    dispatch({ type: GITHUB_ACTION_TYPES.SET_LOADING, payload: true });
+
     const response = await fetch(`${GITHUB_URL}/users`, {
       headers: {
         Authorization: `token ${GITHUB_PAT}`,
@@ -32,8 +40,9 @@ export const GithubProvider = ({ children }: Props) => {
 
     const data = await response.json();
     console.log('users', data);
-    setLoading(false);
-    setUsers(data);
+
+    dispatch({ type: GITHUB_ACTION_TYPES.GET_USERS, payload: data });
+    dispatch({ type: GITHUB_ACTION_TYPES.SET_LOADING, payload: false });
   }
 
   return (
